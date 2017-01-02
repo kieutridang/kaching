@@ -1,0 +1,18 @@
+<div class="billboards-step3" ng-controller="step3Ctrl">
+	<form name="form1" novalidate>
+		<div loader ng-show="view.busy"></div>
+		<div ng-show="!view.busy">
+			<div class="container-step-3-stream">
+				<p class="font-11 capitalize text-right">* require field</p>
+				<ad-dollars medias="medias" campaign="campaign" selected-media="selectedMedia"></ad-dollars>
+				<div class="list-product-section margin-t-20" ng-show="selectedMedia">
+					<product-list selected-media="selectedMedia"></product-list>
+				</div>
+			</div>
+			<div class="footer-popup-stream-video clearfix">
+				<a class="btn-next-step pull-right" ng-click="nextStep()">Save & Continue to Step 4</a>
+				<a class="btn-back-to-step pull-right" ng-click="goPrev()">Back to step 2</a>
+			</div>
+		</div>
+	</form>
+</div>

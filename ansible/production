@@ -1,0 +1,7 @@
+# Inventory file
+
+[webserver]
+52.77.201.44
+
+[production:children]
+webserver

@@ -1,0 +1,139 @@
+<div class="modal kaching-modal modal-signup" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="header-sign-up-kaching clearfix">
+                    <span class="font-14 pull-left capitalize txt-white medium-font" ng-show="!view.success && !view.signupSuccess">sign up</span>
+                    <span class="font-14 pull-left capitalize txt-white medium-font" ng-show="view.success && !view.signupSuccess">Signup - Credit Card Setup</span>
+                    <span class="font-14 pull-left capitalize txt-white medium-font" ng-show="view.signupSuccess">Thank you for registering</span>
+                    <a href="#" class="pull-right" ng-click="$hide()">
+                        <img ng-src="{{kachingAppConfig.wpTemplateUri + '/assets/images/close-popup.svg'}}"/>
+                    </a>
+                </div>
+            </div>
+            <div class="modal-body text-center">
+                <form ng-show="!view.success && !view.signupSuccess" name="form1" ng-submit="signupFormSubmit()" novalidate>
+                    <div class="container-sign-up-kaching">
+                        <div class="detail-sign-up-kaching">
+                            <div class="input-user-pass margin-b-15">
+                                <div class="avatar-user-kaching">
+                                    <label>user photo</label>
+                                    <div id="profileImage" class="file-upload-photo-kaching">
+                                        <input type="file" nv-file-select uploader="profileImageUploader" ng-model="imageUpload" onchange="angular.element(this).scope().previewImage(event)">
+                                    </div>
+                                </div>
+                                <label>Email</label>
+                                <div class="form-group" ng-class="{ 'has-error' : showErrors() && fieldHasError( this, 'form1', 'email' ) }">
+                                    <input type="email" name="email" placeholder="email" autocomplete="off" maxlength="254" ng-model="data.email" ng-maxlength="254" ng-disabled="view.sending" ng-change="clearCustomErrors()" required class="margin-b-15">
+                                    <span ng-show="showErrors() && fieldHasError( this, 'form1', 'email' )" class="help-block">
+                                                        <span ng-show="!form1.email.$error.email && !form1.email.$error.emailRegistered && !form1.email.$error.emailInvalid">Please enter your e-mail address.</span>
+                                    <span ng-show="form1.email.$error.email || form1.email.$error.emailInvalid">Please enter a valid e-mail.</span>
+                                    <span ng-show="form1.email.$error.emailRegistered">User with this e-mail already exists.</span>
+                                    </span>
+                                </div>
+
+                                <label ng-model="password" ng-mouseover="changeTooltipClass()">Password <span class="question" tooltip-placement="right" uib-tooltip-template="'myTooltipTemplate.html'">?</span></label>
+                                <script type="text/ng-template" id="myTooltipTemplate.html">
+                                    <p class="sign-up-tooltips">
+                                        <strong>Your password must have:</strong><br/>
+                                        <span><i class="fa fa-check-circle" aria-hidden="true"></i> 8 or more characters</span><br/>
+                                        <span><i class="fa fa-check-circle" aria-hidden="true"></i> Upper & lowercase letters</span><br/>
+                                        <span><i class="fa fa-check-circle" aria-hidden="true"></i> At least one number</span>
+                                    </p>
+                                </script>
+                                <div class="form-group" ng-class="{ 'has-error' : showErrors() && fieldHasError( this, 'form1', 'password' ) }">
+                                    <input type="password" name="password" class="form-control" placeholder="password" autocomplete="off" ng-model="data.password" ng-disabled="view.sending" ng-minlength="6" required>
+                                    <span ng-show="showErrors() && fieldHasError( this, 'form1', 'password' )" class="help-block">
+                                                        <span ng-show="!form1.password.$error.minlength">Please enter a password.</span>
+                                    <span ng-show="form1.password.$error.minlength">This password is too short, it should have 6 characters or more.</span>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <div class="row-input-login clearfix">
+                                <div class="column-input-login">
+                                    <label>first name</label>
+                                    <div class="form-group" ng-class="{ 'has-error' : showErrors() && fieldHasError( this, 'form1', 'firstname' ) }">
+                                        <input type="text" name="firstname" class="form-control" placeholder="First Name" maxlength="32" ng-maxlength="32" ng-model="data.firstName" ng-disabled="view.sending" required>
+                                        <span ng-show="showErrors() && fieldHasError( this, 'form1', 'firstname' )" class="help-block">Please enter your first name.</span>
+                                    </div>
+                                </div>
+                                <div class="column-input-login">
+                                    <label>last name</label>
+                                    <div class="form-group" ng-class="{ 'has-error' : showErrors() && fieldHasError( this, 'form1', 'lastname' ) }">
+                                        <input name="lastname" type="text" class="form-control" placeholder="Last Name" maxlength="32" ng-maxlength="32" ng-model="data.lastName" ng-disabled="view.sending" required>
+                                        <span ng-show="showErrors() && fieldHasError( this, 'form1', 'lastname' )" class="help-block">Please enter your last name.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label>company</label>
+                            <div class="form-group" ng-class="{ 'has-error' : showErrors() && fieldHasError( this, 'form1', 'company' ) }">
+                                <input type="text" name="company" class="form-control" placeholder="Company" autocomplete="off" maxlength="64" ng-model="data.company" ng-maxlength="64" ng-disabled="view.sending" required>
+                                <span ng-show="showErrors() && fieldHasError( this, 'form1', 'company' )" class="help-block">Please enter your company name.</span>
+                            </div>
+
+                            <label>account</label>
+                            <a href="#" class="btn-setup-creditcard">Setup
+                                                <img class="pull-right" ng-src="{{kachingAppConfig.wpTemplateUri + '/assets/images/arrow-creditcard.svg'}}"/>
+                                    		</a>
+                            <div class="credential-secure margin-b-15">
+                                <p class="txt-grey font-13 medium-font capitalize">credentials security</p>
+                                <p class="margin-0 font-13">
+                                    Your external account credentials are stored securely and used for the sole purpose of retrieving relevant reports.
+                                </p>
+                            </div>
+                            <button class="btn-connect-service" type="submit" ng-disabled="view.sending">Connect Service</button>
+                        </div>
+                    </div>
+                </form>
+                <form ng-show="view.success && !view.signupSuccess" name="form2" ng-submit="register()" novalidate>
+                    <div class="container-sign-up-kaching">
+                        <div class="detail-creditcard-kaching">
+                            <a href="#" class="btn-back-login font-13"><i class="fa fa-angle-left"></i> back</a>
+                            <label>card name</label>
+                            <input type="text" name="" placeholder="card name" class="margin-b-15">
+                            <div class="credit-card-input">
+                                <label>card number</label>
+                                <div class="relative">
+                                    <span class="photo-card"></span>
+                                    <input type="text" name="" placeholder="card number" class="margin-b-15">
+                                </div>
+                            </div>
+                            <div class="row-input-login clearfix">
+                                <div class="column-input-login">
+                                    <label>expire date</label>
+                                    <input type="text" name="" placeholder="MM / YY" class="margin-b-15">
+                                </div>
+                                <div class="column-input-login">
+                                    <label>CVC</label>
+                                    <input type="password" name="" placeholder="CVC" class="margin-b-15">
+                                </div>
+                            </div>
+                            <p class="font-13">
+                                We will send you a sms to confirm your credit card authenication shortly.
+                            </p>
+                            <div class="credential-secure margin-b-15">
+                                <p class="txt-grey font-13 medium-font capitalize">credentials security</p>
+                                <p class="margin-0 font-13">
+                                    Your external account credentials are stored securely and used for the sole purpose of retrieving relevant reports.
+                                </p>
+                            </div>
+                            <button class="btn-connect-service">Card Submission</button>
+                        </div>
+                    </div>
+                </form>
+
+                <form ng-show="view.signupSuccess" name="form3" novalidate>
+                    <div class="container-sign-up-kaching">
+                        <div class="detail-creditcard-kaching">
+                            <p  class="font-13">The activation link has been sent<br>to your e-mail address.</p>
+                            <button class="btn-connect-service" ng-click="$hide()">Sign in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="wrap1 container1 products-page new-format-product-page">
+    <div class="content row">
+        <div class="header-block">
+            <div class="clearfix margin-b-20">
+                <div class="col-sm-6">
+                    <h3>Product management</h3>
+                </div>
+                <div class="col-md-6 pRight_0 clearfix">
+                    <div class="col-sm-8 text-right">
+                        <form name="searchForm" ng-submit="search()" novalidate>
+                            <div class="input-group input-group-search">
+                                <input type="text" class="form-control" placeholder="Search" ng-model="view.searchInput" ng-disabled="view.busy">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit" ng-disabled="view.busy">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <a href="" ng-click="showNewProductDialog()" type="button" class="btn btn-primary uppercase">New product</a>
+                    </div>
+                </div>
+            </div>
+            <div class="title-cropper-line"></div>
+        </div>
+
+        <div class="products-grid" ng-show="data.products.length > 0" infinite-scroll="nextPage()" infinite-scroll-disabled="view.busy" infinite-scroll-distance="0">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="inner-th">
+                                <span>Product's information</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="inner-th">
+                                <span></span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in data.products" ng-click="toggleItem(item)">
+                        <td>
+                            <div class="box-product-item clearfix">
+                                <div class="photo-container">
+                                    <div class="image-container">
+                                        <div class="image-holder" ng-style="{ 'background-image' : 'url({{ item.image || item.image_url}})' }"></div>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <div class="product-metadata">
+                                        <div class="title ellipsis">{{ item.title }}</div>
+                                        <div class="date">Added: <span>{{ item.date_added | date: 'yyyy-MM-dd'}}</span></div>
+                                    </div>
+                                    <span class="badge-active" ng-show="item.is_active">Active</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="setting-control">
+                            <div class="product-toolbar">
+                                <a ui-sref="kaching.products.view({productId:item.id})" class="btn btn-action">
+                                    <span class="icon icon-ic-eye"></span>
+                                </a>
+                                <a ui-sref="kaching.products.edit({productId:item.id})" class="btn btn-action">
+                                    <span class="icon icon-ic-pen"></span>
+                                </a>
+                                <a ng-click="showDeleteProductDialog( item, $index )" href="" class="btn btn-action">
+                                    <span class="icon icon-ic-remove"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="scroll-spacer"></div>
+        </div>
+
+        <div loader ng-show="view.busy"></div>
+
+        <div ng-show="!view.busy && data.products.length == 0">
+            <h2 class="text-center" ng-show="view.searchPhrase.length == 0">You don't have any products.</h2>
+            <h2 class="text-center" ng-show="view.searchPhrase.length > 0">You don't have any products<br>matching this search criteria.</h2>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="ar-media-preview" ng-if="arType == false || arType == 'wikitude'">
+    <span>No Preview Available</span>
+</div>
+
+<div class="ar-media-preview" ng-if="arType == 'image'">
+    <img ng-src="{{arResource | mediaType}}">
+</div>
+<div class="ar-media-preview" ng-if="arType == 'video'">
+    <video controls autoplay>
+    <source ng-src="{{arResource}}" >
+    Your browser does not support HTML5 video.
+    </video>
+</div>
+<div class="ar-media-preview" ng-if="arType == 'audio'">
+    <audio controls autoplay>
+    <source ng-src="{{arResource}}" >
+    Your browser does not support the audio element.
+    </audio>
+</div>

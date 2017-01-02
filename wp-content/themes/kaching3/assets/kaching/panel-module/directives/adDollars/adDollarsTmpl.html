@@ -1,0 +1,112 @@
+<div class="frame-bg-popup" id="addDollars-content">
+    <div class="block-title-addDollars clearfix">
+        <label class="medium-font popup-name">Coins allocation</label>
+        <span class="medium-font lable-total-addDollars pull-right">Total coins: <strong>{{grandTotal}}</strong></span>
+    </div>
+    <ul class="media-list">
+        <li class="head clearfix">
+            <span class="col-sm-6">Media</span>
+            <span class="col-sm-4"><span class="more-padding">Coin</span></span>
+            <span class="col-sm-2">Sub total</span>
+        </li>
+    </ul>
+    <div class="inner-addDollars-container">
+        <div class="block-media-addDollars">
+            <ul class="media-list">
+                <li ng-repeat="media in medias" class="store-header-area" ng-init="updateMediaItem(media); updateAmount()">
+                    <div class="media-preview media-preview-collapsed clearfix" ng-click="toggleSelectedMedia(media)">
+                        <span class="status-active-line"></span>
+                        <div class="name-info-media col-sm-6">
+                            <span class="video-thumb col-sm-1">
+                                <img ng-src="{{media.target || media.ar_resource | mediaType}}" class="img"/>
+                            </span>
+                            <span class="col-sm-11 name ellipsis">{{media.target_name || media.ar_name}}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>
+                                <i class="fa fa-minus-circle" ng-click="decreaseSetting($event, media, 'bets_per_view', media.bets_per_view)"></i>
+                            </span>
+                            <input valid-number ng-model="media.bets_per_view" ng-init="media.bets_per_view = media.bets_per_view || 0" class="add-amount" ng-change="updateAmount()" ng-click="stopEvent($event)">
+                            <span>
+                                <i class="fa fa-plus-circle" ng-click="increaseSetting($event, media, 'bets_per_view', media.bets_per_view)"></i>
+                            </span>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <input ng-model="media.subTotal" class="add-amount sub-total-value" readonly="true">
+                            <span>coins</span>
+                            <span class="icon-action-setting">
+                                <span class="glyphicon glyphicon-menu-right cursor-pointer" aria-hidden="true"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="media-preview-expanded">
+                        <ul class="media-list action-setting-details">
+                            <li class="media-preview clearfix">
+                                <div class="wrapper-share-item">
+                                    <div class="clearfix">
+                                        <div class="video-thumb col-sm-1">
+                                            <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                        </div>
+                                        <span class="col-sm-5 name ellipsis">Share</span>
+
+                                        <div class="col-sm-4">
+                                            <span>
+                                                <i class="fa fa-minus-circle" ng-click="decreaseRewardSetting($event, media, 'share', media.reward.share)"></i>
+                                            </span>
+                                            <input valid-number ng-model="media.reward.share" ng-init="media.reward.share = media.reward.share || 0" class="add-amount">
+                                            <span>
+                                                <i class="fa fa-plus-circle" ng-click="increaseRewardSetting($event, media, 'share', media.reward.share)"></i>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <a class="add-message-share" ng-click="media.showShareMessage = !media.showShareMessage">Add Message</a>
+                                        </div>
+                                    </div>
+                                    <div class="box-send-message-share form-group clearfix" ng-show="media.showShareMessage" ng-init="media.showShareMessage=!!media.reward.share_message">
+                                        <div class="col-sm-12 no-gutter">
+                                            <input type="text" name="name" ng-model="media.reward.share_message">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="media-preview clearfix">
+                                <div class="clearfix">
+                                    <div class="video-thumb col-sm-1">
+                                        <i class="fa fa-archive" aria-hidden="true"></i>
+                                    </div>
+                                    <span class="col-sm-5 name ellipsis">Buy the product</span>
+
+                                    <div class="col-sm-3">
+                                        <span>
+                                            <i class="fa fa-minus-circle" ng-click="decreaseRewardSetting($event, media, 'product', media.reward.product)"></i>
+                                        </span>
+                                        <input valid-number ng-model="media.reward.product" ng-init="media.reward.product = media.reward.product || 0" class="add-amount">
+                                        <span>
+                                            <i class="fa fa-plus-circle" ng-click="increaseRewardSetting($event, media, 'product', media.reward.product)"></i>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-sm-2"></div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="product-of-media-block" ng-if="media.products && media.products.length > 0">
+                            <label class="medium-font title-name">Selected products</label>
+                            <div class="list-product-of-media clearfix">
+                                <div ng-repeat="product in media.products" class="product">
+                                    <div class="image-container">
+                                        <div class="image-holder" ng-style="{ 'background-image' : 'url({{ product.image || product.image_url }})' }"></div>
+                                        <a class="ic-remove-product" ng-click="removeProduct(media, product)">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

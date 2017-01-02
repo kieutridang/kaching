@@ -1,0 +1,65 @@
+<div class="">
+  <nav class="navbar navbar-light bg-faded">
+    <ul class="col-md-3 no-padding-left">
+      <h1 class="navbar-brand analytics-header">Overview</h1>
+    </ul>
+    <ul class="nav navbar-nav col-md-4">
+      <li class="nav-item active">
+        <a  class="header-link"
+            ng-class="{ 'actived' : activedTab === tab.SCANS }"
+            ng-click="updateTab(tab.SCANS)">
+            <span
+                ng-class="{ 'step-actived' : activedTab === tab.SCANS }"
+                >SCANS
+            </span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a  class="header-link"
+            ng-class="{ 'actived' : activedTab === tab.SALES }"
+            ng-click="updateTab(tab.SALES)">
+            <span
+                ng-class="{ 'step-actived' : activedTab === tab.SALES }"
+                >SALES
+            </span>
+        </a>
+      </li>
+    </ul>
+    <div  class="col-md-5"
+          style="padding:20px;padding-right:0px;"
+          ng-init="analytic.filters=['Last 7 days', 'Last month']; analytic.filter=analytic.filters[0]">
+      <select
+      class="filter-sort-by"
+      ng-model="analytic.filter"
+      ng-model="view.statusFilterModel"
+      ng-options="filter for filter in analytic.filters"
+      ng-change="updateFilters()"
+      ></select>
+    </div>
+  </nav>
+</div>
+
+<div class="container1 container-fluid1 no-gutter">
+    <div class="container-content-popup-stream no-gutter" ng-cloak>
+
+        <div ng-if="activedTab === tab.SCANS">
+            <ng-include src="analyticsTab.scans"></ng-include>
+        </div>
+
+        <div ng-if="activedTab === tab.SALES">
+            <ng-include src="analyticsTab.sales"></ng-include>
+        </div>
+
+        <div ng-if="activedTab === tab.PRODUCT_REVENUE">
+            <ng-include src="analyticsTab.revenue"></ng-include>
+        </div>
+
+        <div ng-if="activedTab === tab.PRODUCT_TRAFFIC">
+            <ng-include src="analyticsTab.traffic"></ng-include>
+        </div>
+
+        <div ng-if="activedTab === tab.PURCHASE_FUNNEL">
+            <ng-include src="analyticsTab.funnel"></ng-include>
+        </div>
+    </div>
+</div>

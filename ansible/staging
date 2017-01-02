@@ -1,0 +1,7 @@
+# Inventory file
+
+[webserver]
+52.221.252.122
+
+[staging:children]
+webserver
